@@ -1,6 +1,6 @@
 'use strict'
 
-mockModule = require './mock/http.coffee'
+mockModule = require './../mock/http.coffee'
 
 describe 'Mocking Test ->', ->
 
