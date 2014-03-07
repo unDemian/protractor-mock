@@ -102,7 +102,7 @@ The `init()` method is called before each test when loading the `httpBackendMock
 
 Basically each object in this resource represents a set of that will apply to mock the `$http` service.
 - `endpoint` - here you can set which endpoint is affected
-- `type` - is it a list or an element endpoint (`/mx-admin/v1/api/admin/discovery` vs `/mx-admin/v1/api/admin/discovery/400`)
+- `type` - is it a list or an element endpoint (`/games` vs `/console`)
 - `get` / `post` / `put` / `delete` - here you can overwrite the default behaviour for each method of that endpoint.
     - status - represents the expected response status ( `success` / `error` )
     - message - represents the expected response message ( for `GET` (element) / `PUT` / `POST` ) you don't need any message because the element will be the response
