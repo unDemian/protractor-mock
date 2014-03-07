@@ -9,7 +9,7 @@
     "url": "git@github.com:unDemian/protractor-mock.git"
   },
   "dependencies": {
-    "coffee-script": "~1.6",
-    "protractor": "0.20.0"
+    "coffee-script": "1.7.1",
+    "protractor": "0.20.1"
   }
 }

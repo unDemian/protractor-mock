@@ -1,4 +1,5 @@
-init = require './init.coffee'
+init  = require './init.coffee'
+games = require './data/games.coffee'
 
 mock = () ->
 
@@ -64,3 +65,4 @@ mock = () ->
 
 module.exports.httpBackendMockInit = init
 module.exports.httpBackendMock     = mock
+module.exports.mockedGames         = games

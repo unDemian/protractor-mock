@@ -1,6 +1,6 @@
 'use strict'
 
-mockModule = require './../mock/http.coffee'
+mockModule  = require './../mock/http.coffee'
 
 describe 'Mocking Test ->', ->
 
@@ -12,6 +12,7 @@ describe 'Mocking Test ->', ->
     # Clear loaded mock modules & Initialize http mock module
     ptor.clearMockModules()
     ptor.addMockModule 'httpBackendMockInit', mockModule.httpBackendMockInit
+    ptor.addMockModule 'MockedGames', mockModule.mockedGames
 
   it 'should throw error', ->
 
