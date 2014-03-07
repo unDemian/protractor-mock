@@ -113,7 +113,7 @@ Basically each object in this resource represents a set of that will apply to mo
 
 Use mocked data in your tests
 ----
-*** NOTE ***: Before each test, clean the loaded mock modules and run the `httpBackendMockInit`
+**NOTE**: Before each test, clean the loaded mock modules and run the `httpBackendMockInit`
 
     beforeEach ->
         ptor = protractor.getInstance()
