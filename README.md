@@ -1,14 +1,28 @@
 # Protractor Mock Service 
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+`protractor-mock` creates a more flexible interface for mocking **$httpBackend** requests in [Protractor](https://github.com/angular/protractor).
 
-# Installation & Configuration
+Basically, it allows you to keep all your mocking data structured in distinct files for each endpoint and never again copy/paste json data in your `spec` files. Also you can easily handle multiple endpoints or requests and custom response scenarios.
 
-## Requirements
-- Protractor
-- Angular mocks
+# Installation
 
-# How to use
+###### Requirements
+* AngularJs
+* Angular Mocks (ngMockE2E)
+* Protractor
+
+
+###### Installation
+1. [clone](https://github.com/unDemian/protractor-mock.git) this repo or [download](https://github.com/unDemian/protractor-mock/archive/master.zip) the zip archive
+2. copy the `mock/` folder into your **e2e** folder 
+3. include the module into your `spec` files 
+    
+
+```coffeescript
+mockModule  = require './mock/http.coffee'
+```
+
+# Configuration
 
 First include the services mock into your `scenarios.spec.coffe` file
 
