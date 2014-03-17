@@ -14,8 +14,8 @@ module.exports = () ->
       @resources  = []
 
     # Add an endpoint to service
-    @add: (name, value) ->
-      Object.defineProperty @::, name, value: value
+    @add = (name, value) ->
+      this[name] = value
 
     # Configurate an endpoint behaviours
     @endpoint = (endpoint, options) ->

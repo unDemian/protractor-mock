@@ -65,4 +65,6 @@ mock = () ->
 
 module.exports.httpBackendMockInit = init
 module.exports.httpBackendMock     = mock
+
+# Data exports
 module.exports.mockedGames         = games

@@ -21,7 +21,7 @@ module.exports = () ->
           },
         ]
 
-      # Custom messages
+        # Custom messages
         success:
           deleted:
             code: 200
