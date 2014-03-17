@@ -7,13 +7,13 @@ Basically, it allows you to keep all your mocking data structured in distinct fi
 # Installation
 
 ###### Requirements
-* AngularJs
-* Angular Mocks (ngMockE2E)
-* Protractor
+* [AngularJs](https://github.com/angular/angular.js)
+* [Angular Mocks](https://github.com/angular/bower-angular-mocks) (ngMockE2E)
+* [Protractor](https://github.com/angular/protractor)
 
 
 ###### Installation
-1. [clone](https://github.com/unDemian/protractor-mock.git) this repo or [download](https://github.com/unDemian/protractor-mock/archive/master.zip) the zip archive
+1. clone this [repo](https://github.com/unDemian/protractor-mock.git) or download the [zip archive](https://github.com/unDemian/protractor-mock/archive/master.zip)
 2. copy the `mock/` folder into your **e2e** folder 
 3. include the module into your `spec` files 
     
