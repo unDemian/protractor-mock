@@ -1,5 +1,5 @@
 init  = require './init.coffee'
-games = require './data/games.coffee'
+games = require './data/example.data.coffee'
 
 mock = () ->
 

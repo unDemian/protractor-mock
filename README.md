@@ -1,21 +1,15 @@
-Requirements
-========
+# Protractor Mock Service 
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+# Installation & Configuration
+
+## Requirements
 - Protractor
 - Angular mocks
 
-Structure
-========
+# How to use
 
-- `mock/init.coffee` -
-- `mock/http.coffee` -
-
-Important
-========
-
-**The mock configuration loading or updating have to be the first operations of your test**
-
-Mock Configuration
-==================================
 First include the services mock into your `scenarios.spec.coffe` file
 
     mockModule = require "./mock.coffee"
@@ -136,15 +130,13 @@ Here is an example if you want to use the default mock configurations for your t
 
 If you want to alter the the mocking configuration, just update it and then load the `httpBackendMock` 
 
-  
-With this script we train the mock module return a date mismatch error `Mock.messages.errors.dateMismatch` if we have a *GET* request for an *element* ( `Mock.element` ) with the id (1) using the *endpoint* `Mock.endpoints.entity`  
 
-### Examples
-Example with two different methods on the same endpoint
+# API Docs
 
+# Directory Layout
 
-    
-Example for two different endpoints
+- `mock/init.coffee`
+- `mock/http.coffee`
 
-
-=======
+# Contact
+For more information on `protractor-mock` hit me up  [@unDemian](https://twitter.com/unDemian)
