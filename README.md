@@ -19,7 +19,7 @@ Mock Configuration
 First include the services mock into your `scenarios.spec.coffe` file
 
     mockModule = require "./mock.coffee"
-    
+
 The services mock has 3 main modules
 
 - `httpBackendMockInit` - this is used to set default values before each test
