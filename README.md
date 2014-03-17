@@ -1,12 +1,13 @@
-# Protractor Mock Service 
+## Protractor Mock Service 
 
 `protractor-mock` creates a more flexible interface for mocking **$httpBackend** requests in [Protractor](https://github.com/angular/protractor).
 
 Basically, it allows you to keep all your mocking data structured in distinct files for each endpoint and never again copy/paste json data in your `spec` files. Also you can easily handle multiple endpoints or requests and custom response scenarios.
 
-# Installation
+## Installation
 
 ###### Requirements
+* [CoffeScript](https://www.npmjs.org/package/coffee-script)
 * [AngularJs](https://github.com/angular/angular.js)
 * [Angular Mocks](https://github.com/angular/bower-angular-mocks) (ngMockE2E)
 * [Protractor](https://github.com/angular/protractor)
@@ -14,19 +15,21 @@ Basically, it allows you to keep all your mocking data structured in distinct fi
 
 ###### Installation
 1. clone this [repo](https://github.com/unDemian/protractor-mock.git) or download the [zip archive](https://github.com/unDemian/protractor-mock/archive/master.zip)
-2. copy the `mock/` folder into your **e2e** folder 
-3. include the module into your `spec` files 
-    
+2. copy the `mock/` folder into your **e2e** folder
+3. Done `:]`
 
+
+
+## Configuration
+
+First include the module in your `spec` files 
 ```coffeescript
 mockModule  = require './mock/http.coffee'
 ```
 
-# Configuration
+###### Mocking Data
 
-First include the services mock into your `scenarios.spec.coffe` file
 
-    mockModule = require "./mock.coffee"
 
 The services mock has 3 main modules
 
