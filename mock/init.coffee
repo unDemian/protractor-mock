@@ -1,5 +1,5 @@
 module.exports = () ->
-  init = angular.module("httpBackendMockInit", [])
+  init = angular.module "httpBackendMockInit", []
 
   init.service 'Mock', () ->
 
