@@ -9,7 +9,7 @@ Basically, it allows you to keep all your mocking data structured in distinct fi
 ###### Requirements
 * [CoffeScript](https://www.npmjs.org/package/coffee-script)
 * [AngularJs](https://github.com/angular/angular.js)
-* [Angular Mocks](https://github.com/angular/bower-angular-mocks) (ngMockE2E)
+* [Angular Mocks](https://github.com/angular/angular.js/tree/master/src/ngMock) (ngMockE2E)
 * [Protractor](https://github.com/angular/protractor)
 
 
@@ -17,7 +17,6 @@ Basically, it allows you to keep all your mocking data structured in distinct fi
 1. clone this [repo](https://github.com/unDemian/protractor-mock.git) or download the [zip archive](https://github.com/unDemian/protractor-mock/archive/master.zip)
 2. copy the `mock/` folder into your **e2e** folder
 3. Done `:]`
-
 
 
 ## Configuration
@@ -29,7 +28,31 @@ mockModule  = require './mock/http.coffee'
 
 ###### Mocking Data
 
+Data files are angular modules that have mock data and responses for your endpoints.
+You can create a data file for each endpoint or group of related endpoints. I suggest you keep all your data files in
+the `mock/data/` folder. Example data file [/mock/data/example.data.coffee](https://github.com/unDemian/protractor-mock/blob/master/mock/data/example.data.coffee)
 
+###### Create a data file
+* Create your `.data.coffee` file in the `mock/data/` folder
+* Use the pattern from the example file
+* Use a unique name for your angular module ( angular.module("**MockedGames**", []) )
+* Add some endpoints with `Mock.add(name, options)`
+  
+  | Tables        | Are           | Cool  |
+  | ------------- |:-------------:| -----:|
+  | col 3 is      | right-aligned | $1600 |
+  | col 2 is      | centered      |   $12 |
+  | zebra stripes | are neat      |    $1 |
+
+* Include your data file in the `http.coffee` 
+  ```coffeescript
+  games = require './data/example.data.coffee'
+  ```
+
+* Add it to the exports of the `http.coffee` module
+  ```coffeescript
+  module.exports.mockedGames = games
+  ```
 
 The services mock has 3 main modules
 
