@@ -36,13 +36,17 @@ the `mock/data/` folder. Example data file [/mock/data/example.data.coffee](http
 * Create your `.data.coffee` file in the `mock/data/` folder
 * Use the pattern from the example file
 * Use a unique name for your angular module ( angular.module("**MockedGames**", []) )
-* Add some endpoints with `Mock.add(name, options)`
+* Mock your endpoints using `Mock.add(name, options)`
+
+  `name` - The name of the endpoint (you will reference this later as `Mock.name` so be careful)
+  `options` - Object containing configuration data and response types
   
-  | Tables        | Are           | Cool  |
-  | ------------- |:-------------:| -----:|
-  | col 3 is      | right-aligned | $1600 |
-  | col 2 is      | centered      |   $12 |
-  | zebra stripes | are neat      |    $1 |
+  | Option     | Type       | Description   | Required  |
+  | ---------- | ---------- | ------------- | --------- |
+  | `url` | **string** | url of your endpoint, use the root endpoint because you can concatenate data later to it  | Yes |
+  | `response` | **object** | configuration for all possible responses of this endpoint | Yes |
+  | `response.data` | **object** | mocked json data | Yes |
+  | `response.xxx` | **object** | You can attach custom response messages to be referenced later as `Mock.name.response.xxx` | - |
 
 * Include your data file in the `http.coffee` 
   ```coffeescript
@@ -53,12 +57,6 @@ the `mock/data/` folder. Example data file [/mock/data/example.data.coffee](http
   ```coffeescript
   module.exports.mockedGames = games
   ```
-
-The services mock has 3 main modules
-
-- `httpBackendMockInit` - this is used to set default values before each test
-- `httpBackendMockUpdate` - this is used to update the default values with your test specific data
-- `httpBackendMock` - this is used to bind your mocking rules to the $httpBackend service
 
 Configurate Mock data and default behaviour
 ----
