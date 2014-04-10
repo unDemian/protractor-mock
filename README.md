@@ -26,19 +26,19 @@ First include the module in your `spec` files
 mockModule  = require './mock/http.coffee'
 ```
 
-###### Mocking Data
+###### Create a data file
 
 Data files are angular modules that have mock data and responses for your endpoints.
 You can create a data file for each endpoint or group of related endpoints. I suggest you keep all your data files in
 the `mock/data/` folder. Example data file [/mock/data/example.data.coffee](https://github.com/unDemian/protractor-mock/blob/master/mock/data/example.data.coffee)
 
-###### Create a data file
 * Create your `.data.coffee` file in the `mock/data/` folder
 * Use the pattern from the example file
 * Use a unique name for your angular module ( angular.module("**MockedGames**", []) )
 * Mock your endpoints using `Mock.add(name, options)`
 
   `name` - The name of the endpoint (you will reference this later as `Mock.name` so be careful)
+  
   `options` - Object containing configuration data and response types
   
   | Option     | Type       | Description   | Required  |
@@ -48,50 +48,77 @@ the `mock/data/` folder. Example data file [/mock/data/example.data.coffee](http
   | `response.data` | **object** | mocked json data | Yes |
   | `response.xxx` | **object** | You can attach custom response messages to be referenced later as `Mock.name.response.xxx` | - |
 
-* Include your data file in the `http.coffee` 
-  ```coffeescript
+###### Configurate your `http.coffee`
+Include your data file in the `http.coffee` 
+```coffeescript
   games = require './data/example.data.coffee'
-  ```
+```
 
-* Add it to the exports of the `http.coffee` module
-  ```coffeescript
+Add it to the exports of the `http.coffee` module
+```coffeescript
   module.exports.mockedGames = games
-  ```
+```
 
-Configurate Mock data and default behaviour
+Replace `app-name` with your main app module in `http.coffee`
+```coffeescript
+  angular.module("httpBackendMock", ["app-name", "ngMockE2E"]).run ['$httpBackend', 'Mock', ($httpBackend, Mock) ->
+```
+
+Usage
 ----
-Take a look at the `mock.coffee` file, play with variables only if you see a *Configuration* word in the comments.
 
-#### Endpoint Configuration
-For each endpoint you have the following configuration options
-- url - the url of the endpoint
-- response - copy / paste the json returned on the endpoint (list of elements)
-  - data - copy / paste the json returned on the endpoint (list of elements)
-  - success - messages for success
-  - error - messages for error
+Include the mock module into your `spec` files
+```coffeescript
+  mockModule  = require './mock/http.coffee'
+```
 
-    @games:
-      url: '/games'
-      data: {
-        "3": "Xbox",
-        "4": "PS4",
-      }
-      success:
-        deleted:
-          code: 200
-          content: 'Delete Successful'
-          headers: []
+Add required mock modules in your `beforeEach` statement, beside the initialization module you can add as many data modules as you need 
+```coffeescript
+  ptor.clearMockModules() # Clear loaded mock modules
+  ptor.addMockModule 'httpBackendMockInit', mockModule.httpBackendMockInit # Initialize http mock module
+  ptor.addMockModule 'MockedGames', mockModule.mockedGames # Include your mocked data for games endpoints
+```
 
-      error:
-        notFound:
-          code: 404,
-          content: 'Not found'
-          headers: []
+Set the behaviour for your mocked endpoints, this has to be the first thing of your `it` statement
+```coffeescript
+    # Update behaviour for mocked endpoints
+    ptor.addMockModule 'httpBackendMockUpdate', () ->
+      angular.module('httpBackendMockUpdate', []).run ['Mock', (Mock) ->
+        Mock.endpoint(Mock.games, [
+          {
+            get:
+              arguments: '/all'
+              response: Mock.entity.response.error.notFound
+          }
+        ])
+        Mock.endpoint(Mock.consoles, [
+          {
+            get:
+              type: Mock.object
+          }
+        ])
+      ]
 
+    # Apply your mock module for http
+    ptor.addMockModule 'httpBackendMock', mockModule.httpBackendMock
+```
 
-#### Mocked Resources Configuration
-The `init()` method is called before each test when loading the `httpBackendMockInit`, here you can configure the default behaviour of your mocking module.
+#### Endpoints Options
+Use the `Mock.endpoint(name, options)` method to set your desired behaviour.
 
+  `name` - The name of the endpoint from the data file (ex `Mock.Games`)
+  
+  `options` - Array of objects containing configuration data and method specific responses
+  
+| Option | Type | Description | Required |
+| ------ | ---- | ----------- | -------- |
+| `passThrough`  | **string** | date later | Yes |
+| `arguments`  | **string** | date later | Yes |
+| `type`  | **string** | date later | Yes |
+| `response`  | **string** | date later | Yes |
+
+  
+```
     Mock.endpoint(Mock.games, [
         {
           get:
@@ -129,48 +156,7 @@ The `init()` method is called before each test when loading the `httpBackendMock
       @resource = [
 
       ]
-
-`resource` is the default array of resource behaviours (object). This can be updated using the `config(resource)` . 
-
-Basically each object in this resource represents a set of that will apply to mock the `$http` service.
-- `endpoint` - here you can set which endpoint is affected
-- `type` - is it a list or an element endpoint (`/games` vs `/console`)
-- `get` / `post` / `put` / `delete` - here you can overwrite the default behaviour for each method of that endpoint.
-    - status - represents the expected response status ( `success` / `error` )
-    - message - represents the expected response message ( for `GET` (element) / `PUT` / `POST` ) you don't need any message because the element will be the response
-
-#### Inject your application as a dependency
-    httpBackendMock = () ->
-        angular.module("httpBackendMock", ["app", "ngMockE2E"]).run ['$httpBackend', 'Mock', ($httpBackend, Mock) ->
-
-Use mocked data in your tests
-----
-**NOTE**: Before each test, clean the loaded mock modules and run the `httpBackendMockInit`
-
-    beforeEach ->
-        ptor = protractor.getInstance()
-        
-        # Clean loaded modules
-        ptor.clearMockModules()
-        
-        # Add the default mocking data
-        ptor.addMockModule 'httpBackendMockInit', servicesMock.httpBackendMockInit 
-
-Here is an example if you want to use the default mock configurations for your test (the ones that you've set in the `init()` method)
-
-    describe "Actions ->", ->
-        it "should take you to the edit page", ->
-
-            # Mock $http service with default configurations
-            ptor.addMockModule 'httpBackendMock', servicesMock.httpBackendMock
-
-            ptor.get ptor.baseUrl + '/games'
-
-If you want to alter the the mocking configuration, just update it and then load the `httpBackendMock` 
-
-
-# API Docs
-
+```
 # Directory Layout
 
 - `mock/init.coffee`
