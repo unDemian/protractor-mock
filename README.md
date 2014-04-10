@@ -46,7 +46,7 @@ the `mock/data/` folder. Example data file [/mock/data/example.data.coffee](http
   | `url` | **string** | url of your endpoint, use the root endpoint because you can concatenate data later to it  | Yes |
   | `response` | **object** | configuration for all possible responses of this endpoint | Yes |
   | `response.data` | **object** | mocked json data | Yes |
-  | `response.xxx` | **object** | You can attach custom response messages to be referenced later as `Mock.name.response.xxx` | - |
+  | `response.*` | **object** | You can attach custom response messages to be referenced later as `Mock.name.response.xxx` | - |
 
 ###### Configurate your `http.coffee`
 Include your data file in the `http.coffee` 
@@ -72,11 +72,16 @@ Include the mock module into your `spec` files
   mockModule  = require './mock/http.coffee'
 ```
 
-Add required mock modules in your `beforeEach` statement, beside the initialization module you can add as many data modules as you need 
+Add required mock modules in your `beforeEach` statement modules as you need 
 ```coffeescript
-  ptor.clearMockModules() # Clear loaded mock modules
-  ptor.addMockModule 'httpBackendMockInit', mockModule.httpBackendMockInit # Initialize http mock module
-  ptor.addMockModule 'MockedGames', mockModule.mockedGames # Include your mocked data for games endpoints
+  # Clear loaded mock modules
+  ptor.clearMockModules() 
+  
+  # Initialize http mock module
+  ptor.addMockModule 'httpBackendMockInit', mockModule.httpBackendMockInit 
+  
+  # Include your mocked data for games endpointsm you can add as many as you need
+  ptor.addMockModule 'MockedGames', mockModule.mockedGames 
 ```
 
 Set the behaviour for your mocked endpoints, this has to be the first thing of your `it` statement
@@ -87,9 +92,18 @@ Set the behaviour for your mocked endpoints, this has to be the first thing of y
         Mock.endpoint(Mock.games, [
           {
             get:
+              response:
+                code: 200
+                content: 'Yes!'
+          }
+          {
+            get:
               arguments: '/all'
               response: Mock.entity.response.error.notFound
+            put:
+              response: Mock.entity.response.success
           }
+          
         ])
         Mock.endpoint(Mock.consoles, [
           {
@@ -110,57 +124,26 @@ Use the `Mock.endpoint(name, options)` method to set your desired behaviour.
   
   `options` - Array of objects containing configuration data and method specific responses
   
-| Option | Type | Description | Required |
-| ------ | ---- | ----------- | -------- |
-| `passThrough`  | **string** | date later | Yes |
-| `arguments`  | **string** | date later | Yes |
-| `type`  | **string** | date later | Yes |
-| `response`  | **string** | date later | Yes |
+| Option | Type | Description | Required | Default |
+| ------ | ---- | ----------- | -------- | ------- |
+| `passThrough`  | **boolean** | Ignore mocking, pass the request to your api | No | false |
+| `arguments`  | **string** | Parameters to be concatenated to your endpoint url | No | - |
+| `type`  | **object** | Type of returned data, values `Mock.element`, `Mock.object`, `Mock.array`  | No | - |
+| `response`  | **object** | Actual response data, you can use `Mock.games.response.*` objects | Yes | - |
 
-  
-```
-    Mock.endpoint(Mock.games, [
-        {
-          get:
-            passThrough: true
-        }
-        {
-          get:
-            arguments: '/2'
-            response: Mock.games.response.error.notFound
-        }
-        {
-          get:
-            arguments: '/1'
-            type: Mock.element
-        }
-        {
-          get:
-            arguments: '/list'
-            type: Mock.array
-            response:
-              headers: [ 'X-Type: 400' ]
-        }
-        {
-          get:
-            arguments: '/filter'
-            response:
-              code: 200
-              content: 'weqweq'
-          delete:
-            response: Mock.games.response.success.delete
-        }
-      ]
 
-    @init = ()->
-      @resource = [
+**NOTES**
+The `options` argument is an array of response objects, this way you can mock multiple endpoint variations. Also for each response object, you can set the behaviour for all the http available methods (i.e. `get`, `post`, `put`, `delete`).
 
-      ]
-```
-# Directory Layout
+If you select `Mock.element` as your type, and your `response.data` is an array the mocked endpoint will return the first element of the array.
 
-- `mock/init.coffee`
-- `mock/http.coffee`
+As your response you can use one of your objects declared in the data file or you can create one on the fly, below you can see the properties of an `response` object.
+
+| Option | Type | Description | Required | Default |
+| ------ | ---- | ----------- | -------- | ------- |
+| `code`  | **integer** | Returned http status code | Yes | 200 |
+| `content`  | **object** | Actual response string or json object | Yes | - |
+| `headers`  | **array** | An array containing headers that you want to mock  | No | - |
 
 # Contact
 For more information on `protractor-mock` hit me up  [@unDemian](https://twitter.com/unDemian)
