@@ -24,6 +24,15 @@ describe 'Mocking Test ->', ->
             get:
               arguments: '/all'
               response: Mock.entity.response.error.notFound
+            put:
+              response:
+                code: 200
+                content: 'Successfully updated.'
+          }
+          {
+            get:
+              arguments: '/filtered'
+              response: Mock.entity.response.data
           }
         ])
         Mock.endpoint(Mock.consoles, [
