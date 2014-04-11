@@ -72,7 +72,7 @@ Include the mock module into your `spec` files
   mockModule  = require './mock/http.coffee'
 ```
 
-Add required mock modules in your `beforeEach` statement modules as you need 
+Add required mock modules in your `beforeEach` statement
 ```coffeescript
   # Clear loaded mock modules
   ptor.clearMockModules() 
