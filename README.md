@@ -133,7 +133,8 @@ Use the `Mock.endpoint(name, options)` method to set your desired behaviour.
 
 
 **NOTES**
-The `options` argument is an array of response objects, this way you can mock multiple endpoint variations. Also for each response object, you can set the behaviour for all the http available methods (i.e. `get`, `post`, `put`, `delete`).
+
+`options` argument is an array of response objects, this way you can mock multiple endpoint variations. Also for each response object, you can set the behaviour for all the http available methods (i.e. `get`, `post`, `put`, `delete`).
 
 If you select `Mock.element` as your type, and your `response.data` is an array the mocked endpoint will return the first element of the array.
 
