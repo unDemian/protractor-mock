@@ -16,7 +16,7 @@ Basically, it allows you to keep all your mocking data structured in distinct fi
 ###### Installation
 1. clone this [repo](https://github.com/unDemian/protractor-mock.git) or download the [zip archive](https://github.com/unDemian/protractor-mock/archive/master.zip)
 2. copy the `mock/` folder into your **e2e** folder
-3. Done `:]`
+3. Done `:]` (there is an example scenario file in the repo `example.spec.coffee`)
 
 
 ## Configuration
