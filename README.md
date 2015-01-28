@@ -1,3 +1,9 @@
+## Deprecated
+This project has been deprecated, please try using more low level npm packages for mocking.
+[Nock](https://github.com/pgte/nock)
+[Express Mocks](https://www.npmjs.com/package/express-mocks-http)
+Thanks
+
 ## Protractor Mock Service 
 
 `protractor-mock` creates a more flexible interface for mocking **$httpBackend** requests in [Protractor](https://github.com/angular/protractor).
